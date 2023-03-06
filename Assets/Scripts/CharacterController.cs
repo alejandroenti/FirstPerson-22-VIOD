@@ -19,6 +19,10 @@ public class CharacterController : MonoBehaviour
     void Update()
     {
         View();
+    }
+
+    private void FixedUpdate()
+    {
         Move();
     }
 
@@ -29,7 +33,7 @@ public class CharacterController : MonoBehaviour
             temp = temp.normalized;
         }
 
-        temp *= speed * Time.deltaTime;
+        temp *= speed * Time.fixedDeltaTime;
         transform.position += transform.forward * temp.y + transform.right * temp.x;
     }
     void View()
