@@ -12,7 +12,7 @@ public class CharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -24,10 +24,13 @@ public class CharacterController : MonoBehaviour
 
     void Move()
     {
-        float horizontal = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-        float vertical = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        Vector2 temp = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        if (temp.magnitude > 1f) {
+            temp = temp.normalized;
+        }
 
-        transform.position += transform.forward * vertical + transform.right * horizontal;
+        temp *= speed * Time.deltaTime;
+        transform.position += transform.forward * temp.y + transform.right * temp.x;
     }
     void View()
     {
